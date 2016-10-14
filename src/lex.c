@@ -48,6 +48,26 @@ static lex_state *lex_state_open(char *src) {
     return state;
 }
 
+void lex_token_stream_p(lex_token_stream *stream)
+{
+    printf("lex_token_stream:");
+    for(lex_token_stream *head = stream; head == NULL; head = head->next)
+    {
+        printf("{%s,%d},", head->data->tok, head->data->tag);
+    }
+    printf("\t");
+    return ;
+}
+
+void lex_state_p(lex_state *state){
+    printf("state->start:%s\t", state->start);
+    printf("state->pos:%d\t", state->pos);
+    printf("state->len:%d\t", state->len);
+    lex_token_stream_p(state->head);
+    printf("state->err:%d\t", state->err);
+    return;
+}
+
 
 static char lex_state_next(lex_state *state) {
     return *(state->start + state->pos + state->len + 1);
@@ -80,7 +100,7 @@ static int lex_emit(lex_state *state, int typ) {
     state->tail->next = stream;
     state->tail       = stream;
 
-    state->start = state->start + state->pos + 1;
+    state->start = state->start + state->pos;
     state->len   = 0;
     state->pos   = 0;
 
