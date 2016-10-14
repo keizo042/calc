@@ -12,5 +12,5 @@ calc:  $(SRC)
 .PHONY: clean
 
 clean:
-	rm $(SRCDIR)/*.o $(BINDIR)/kcc
+	rm $(BINDIR)/calc > /dev/null  2>&1
 
