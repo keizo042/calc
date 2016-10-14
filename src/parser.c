@@ -31,3 +31,8 @@ parser_state *parse(lex_state *lexer) {
     }
     return state;
 }
+
+ast_t *parser_ast(parser_state *parser)
+{
+    return NULL;
+}
