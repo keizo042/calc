@@ -62,7 +62,7 @@ static lex_state *lex_state_open(char *src) {
     state->head      = lex_token_stream_open();
     state->tail      = state->head;
 
-    state->err = 1;
+    state->err = 0;
     return state;
 }
 
