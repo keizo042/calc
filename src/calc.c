@@ -1,14 +1,14 @@
 #include "ast.h"
+#include "interp.h"
 #include "lex.h"
 #include "parser.h"
-#include "interp.h"
 #include <stdio.h>
 #include <string.h>
 
 void help() {
-    char **desc = {NULL};
+    char *desc[] = {"", NULL};
 
-    for (int i = 0; strcmp(desc[i], "") != 0; i++) {
+    for (int i = 0; desc[i] != NULL; i++) {
         printf("%s\n", desc[i]);
     }
 }
@@ -17,7 +17,7 @@ void help() {
 int main(int argc, char *argv[]) {
     lex_state *lexer     = NULL;
     parser_state *parser = NULL;
-    ast_t *ast = NULL;
+    ast_t *ast           = NULL;
 
     if (argc < 2) {
         help();
@@ -32,8 +32,7 @@ int main(int argc, char *argv[]) {
     if (parser == NULL) {
         return -1;
     }
-    if(parser->err = 1)
-    {
+    if (parser->err = 1) {
         return -1;
     }
     ast = parser_ast(parser);
