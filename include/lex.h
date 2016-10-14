@@ -9,14 +9,30 @@
 #define TOK_PAREN_L 6
 #define TOK_PAREN_R 7
 
-
-struct lex_token;
+struct lex_token {
+    int tag;
+    char *tok;
+};
 typedef struct lex_token lex_token;
-struct lex_token_stream;
+
+struct lex_token_stream {
+    lex_token *data;
+    struct lex_token_stream *next;
+};
 typedef struct lex_token_stream lex_token_stream;
-struct lex_state;
+
+struct lex_state {
+    char *src;
+    char *start;
+    int pos;
+    int len;
+    lex_token_stream *head;
+    lex_token_stream *tail;
+
+    int err;
+};
 typedef struct lex_state lex_state;
 
 lex_state *lex(char *src);
-lex_token_stream* lex_state_stream(lex_state *state);
+lex_token_stream *lex_state_stream(lex_state *state);
 #endif

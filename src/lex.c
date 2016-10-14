@@ -17,10 +17,6 @@ static int lex_text(lex_state *);
 static int lex_ident(lex_state *);
 static int lex_emit(lex_state *, int);
 
-typedef struct lex_token {
-    int tag;
-    char *tok;
-} lex_token;
 
 static lex_token *lex_token_new(char *tok, int len, int tag) {
     lex_token *token = malloc(sizeof(lex_token));
@@ -29,10 +25,6 @@ static lex_token *lex_token_new(char *tok, int len, int tag) {
     return token;
 }
 
-typedef struct lex_token_stream {
-    lex_token *data;
-    lex_token_stream *next;
-} lex_token_stream;
 
 static lex_token_stream *lex_token_stream_open() {
     lex_token_stream *stream = malloc(sizeof(lex_token_stream));
@@ -42,16 +34,6 @@ static lex_token_stream *lex_token_stream_open() {
     return stream;
 }
 
-typedef struct lex_state {
-    char *src;
-    char *start;
-    int pos;
-    int len;
-    lex_token_stream *head;
-    lex_token_stream *tail;
-
-    int err;
-} lex_state;
 
 static lex_state *lex_state_open(char *src) {
     lex_state *state = malloc(sizeof(lex_state));
@@ -70,19 +52,21 @@ static lex_state *lex_state_open(char *src) {
 static char lex_state_next(lex_state *state) {
     return *(state->start + state->pos + state->len + 1);
 }
-static char lex_state_peek(lex_state *state) { return *(state->start + state->pos + state->len); }
+static char lex_state_peek(lex_state *state) { return *(state->start + state->pos); }
 static char lex_state_pook(lex_state *state) {
     return *(state->start + state->pos + state->len - 1);
 }
 
 static char lex_state_incr(lex_state *state) {
     state->len++;
+    state->pos++;
     return *(state->start + state->pos + state->len);
 }
 
 static char lex_state_decr(lex_state *state) {
     if (state->len > 0) {
         state->len--;
+        state->pos--;
     }
     return *(state->start + state->pos + state->len);
 }
@@ -96,7 +80,7 @@ static int lex_emit(lex_state *state, int typ) {
     state->tail->next = stream;
     state->tail       = stream;
 
-    state->start = state->start + state->pos + state->len + 1;
+    state->start = state->start + state->pos + 1;
     state->len   = 0;
     state->pos   = 0;
 
