@@ -18,4 +18,5 @@ struct lex_state;
 typedef struct lex_state lex_state;
 
 lex_state *lex(char *src);
+lex_token_stream* lex_state_stream(lex_state *state);
 #endif

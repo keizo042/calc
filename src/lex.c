@@ -62,7 +62,7 @@ static lex_state *lex_state_open(char *src) {
     state->head      = lex_token_stream_open();
     state->tail      = state->head;
 
-    state->err = 0;
+    state->err = 1;
     return state;
 }
 
@@ -101,6 +101,11 @@ static int lex_emit(lex_state *state, int typ) {
     state->pos   = 0;
 
     return CONTINUE;
+}
+
+lex_token_stream* lex_state_stream(lex_state *state)
+{
+    return state->head;
 }
 
 
