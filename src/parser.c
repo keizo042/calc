@@ -31,6 +31,7 @@ static int parse_init(parser_state *state) { return PARSER_END; }
 static parser_state *parser_state_open() {
     parser_state *state = malloc(sizeof(parser_state));
     state->fn           = parse_init;
+    state->err          = 0;
     return state;
 }
 
