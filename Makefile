@@ -7,7 +7,7 @@ SRC=$(wildcard $(SRCDIR)/*.c)
 all: calc
 
 calc:  $(SRC)
-	gcc $(INCLUDE) $(SRC)  -o $(BINDIR)/calc
+	gcc -g $(INCLUDE) $(SRC)  -o $(BINDIR)/calc
 
 .PHONY: clean
 
