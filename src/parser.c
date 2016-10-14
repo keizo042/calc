@@ -1,7 +1,12 @@
-#include <lex.h>
-#include <parser.h>
-#include <ast.h>
+#include <stdio.h>
+#include "lex.h"
+#include "parser.h"
+#include "ast.h"
 
-void parser(lex_state *state)
+
+
+parser_state* parse(lex_state *lexer)
 {
+    parser_state *state = NULL;
+    return state;
 }
