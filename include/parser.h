@@ -4,7 +4,10 @@
 #include "ast.h"
 #include "lex.h"
 
-typedef int (*statefn_t)();
+struct parser_state;
+typedef struct parser_state_s parser_state;
+
+typedef int (*statefn_t)(parser_state *);
 
 struct parser_stack_s {
     int tag;
@@ -13,11 +16,12 @@ struct parser_stack_s {
 typedef struct parser_state_s parser_stack_t;
 
 struct parser_state_s {
+    lex_token_stream *stream;
     parser_stack_t *stack;
-    statefn_t state;
+    statefn_t fn;
     int err;
 };
-typedef struct parser_state_s parser_state;
+
 
 parser_state *parse(lex_state *);
 ast_t *parser_ast(parser_state *);
