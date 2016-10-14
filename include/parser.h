@@ -9,11 +9,14 @@ typedef struct parser_state_s parser_state;
 
 typedef int (*statefn_t)(parser_state *);
 
+struct parser_stack_s;
+typedef struct parser_stack_s parser_stack_t;
+
 struct parser_stack_s {
-    int tag;
+    parser_stack_t *prev;
     ast_t *ast;
 };
-typedef struct parser_state_s parser_stack_t;
+
 
 struct parser_state_s {
     lex_token_stream *stream;
