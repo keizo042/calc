@@ -29,10 +29,8 @@ int main(int argc, char *argv[]) {
         return -1;
     }
     parser = parse(lexer);
-    if (parser == NULL) {
-        return -1;
-    }
-    if (parser->err = 1) {
+    if (parser->err == 1) {
+        printf("parse fail\n");
         return -1;
     }
     ast = parser_ast(parser);
