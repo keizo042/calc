@@ -23,10 +23,12 @@ struct parser_state_s {
     lex_token_stream *stream;
     parser_stack_t *stack;
     statefn_t fn;
+    expr *result;
     int err;
 };
 
 
 expr *parser_expr(parser_state *);
+parser_stack_t *expr2stack(expr *);
 
 #endif
