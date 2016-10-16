@@ -7,7 +7,9 @@ Polish Notation calculator
 implemented by C programming language.
 
 ## sample
-(+ (* 1 2) 2)
+```
+$ calc (+ (* 1 2) 2)
+```
 >4    
 
 ## Requirement
@@ -26,5 +28,5 @@ MITL
 
 
 ## Contact me
-twitter : @keizo042
+twitter : @keizo042  
 mail: keizo.bookman at gmail.com  
