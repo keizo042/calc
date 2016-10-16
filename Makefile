@@ -1,6 +1,6 @@
 SRCDIR =./src
 BINDIR =./bin
-INCLUDE = -I ./include
+INCLUDE = -I./include -I$(SRCDIR)
 SRC=$(wildcard $(SRCDIR)/*.c)
 
 .PHONY: all

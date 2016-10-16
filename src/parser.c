@@ -4,6 +4,7 @@
 #include "ast.h"
 #include "lex.h"
 #include "parser.h"
+#include "calc.h"
 
 static parser_state *parser_state_open();
 
@@ -37,6 +38,8 @@ static int parse_init(parser_state *state) {
     case TOK_PAREN_L:
     case TOK_PAREN_R:
     case TOK_DIGIT:
+        parser_stack_push(state, lex_token_stream2parser_stack(state->stream));
+
         return PARSER_END;
     }
 }
@@ -60,6 +63,11 @@ parser_state *parse(lex_state *lexer) {
         break;
     }
     return state;
+}
+
+parser_stack_t *lex_token_stream2parser_stack(lex_token_stream *data) {
+    parser_stack_t *stack = malloc(sizeof(parser_stack_t));
+    return stack;
 }
 
 ast_t *parser_ast(parser_state *parser) { return NULL; }

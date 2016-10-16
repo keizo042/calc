@@ -1,3 +1,4 @@
+#include "calc.h"
 #include "lex.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -161,3 +162,26 @@ lex_state *lex(char *src) {
         return state;
     }
 }
+
+const char *lex_token_typ_str(lex_token *token) {
+    switch (token->tag) {
+    case TOK_PAREN_L:
+        return "TOK_PAREN_L";
+    case TOK_PAREN_R:
+        return "TOK_PAREN_R";
+    case TOK_MUITI:
+        return "TOK_MUITI";
+    case TOK_MIN:
+        return "TOK_MIN";
+    case TOK_PLUS:
+        return "TOK_PLUS";
+    case TOK_DIV:
+        return "TOK_DIV";
+    case TOK_DIGIT:
+        return "TOK_DIGIT";
+    default:
+        return "undefined";
+    }
+}
+
+const char *lex_token_sym_str(lex_token *token) { return token->tok; }

@@ -9,6 +9,7 @@
 #define TOK_PAREN_L 6
 #define TOK_PAREN_R 7
 
+
 struct lex_token {
     int tag;
     char *tok;
@@ -33,6 +34,7 @@ struct lex_state {
 };
 typedef struct lex_state lex_state;
 
-lex_state *lex(char *src);
-lex_token_stream *lex_state_stream(lex_state *state);
+lex_token_stream *lex_state_stream(lex_state *);
+const char *lex_token_typ_str(lex_token *);
+const char *lex_token_sym_str(lex_token *);
 #endif

@@ -1,9 +1,12 @@
+#include "calc.h"
 #include "ast.h"
 #include "interp.h"
 #include "lex.h"
 #include "parser.h"
 #include <stdio.h>
 #include <string.h>
+
+int lex_token_stream_pp(lex_state *state) ;
 
 void help() {
     char *desc[] = {"", NULL};
@@ -23,6 +26,21 @@ int main(int argc, char *argv[]) {
         help();
         return 0;
     }
+    if (strncmp("dump", argv[1], 4) == 0) {
+        if (argc < 4) {
+            help();
+            return 0;
+        }
+        if (strncmp("lex", argv[2], 3) == 0) {
+            lexer = lex(argv[3]);
+            if (lexer == NULL) {
+                printf("lexer fail\n");
+                return -1;
+            }
+            lex_token_stream_pp(lexer);
+            return 0;
+        }
+    }
     lexer = lex(argv[1]);
     if (lexer == NULL) {
         printf("lexer fail\n");
@@ -36,5 +54,15 @@ int main(int argc, char *argv[]) {
     ast = parser_ast(parser);
     run(ast);
 
+    return 0;
+}
+
+int lex_token_stream_pp(lex_state *state) {
+
+    printf("{");
+    for (lex_token_stream *stream = state->head;  stream->data != NULL; stream = stream->next) {
+        printf("%s:%s,", lex_token_typ_str(stream->data), lex_token_sym_str(stream->data));
+    }
+    printf("}\n");
     return 0;
 }
