@@ -148,6 +148,7 @@ int lex_ident(lex_state *state) {
     while (NUM_P(lex_state_peek(state))) {
         lex_state_incr(state);
     }
+    state->len++;
     return lex_emit(state, TOK_DIGIT);
 }
 
