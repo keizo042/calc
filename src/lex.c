@@ -23,6 +23,7 @@ static lex_token *lex_token_new(char *tok, int len, int tag) {
     lex_token *token = malloc(sizeof(lex_token));
     token->tok       = malloc(sizeof(char) * (len + 1));
     strncpy(token->tok, tok, len);
+    token->tag = tag;
     return token;
 }
 
