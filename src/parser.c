@@ -70,4 +70,4 @@ parser_stack_t *lex_token_stream2parser_stack(lex_token_stream *data) {
     return stack;
 }
 
-ast_t *parser_ast(parser_state *parser) { return NULL; }
+expr *parser_expr(parser_state *parser) { return NULL; }

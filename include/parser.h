@@ -15,7 +15,7 @@ typedef struct parser_stack_s parser_stack_t;
 
 struct parser_stack_s {
     parser_stack_t *prev;
-    ast_t *ast;
+    expr *expr;
 };
 
 
@@ -27,6 +27,6 @@ struct parser_state_s {
 };
 
 
-ast_t *parser_ast(parser_state *);
+expr *parser_expr(parser_state *);
 
 #endif

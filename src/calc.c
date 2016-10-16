@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int lex_token_stream_pp(lex_state *state) ;
+int lex_token_stream_pp(lex_state *state);
 
 void help() {
     char *desc[] = {"", NULL};
@@ -20,7 +20,7 @@ void help() {
 int main(int argc, char *argv[]) {
     lex_state *lexer     = NULL;
     parser_state *parser = NULL;
-    ast_t *ast           = NULL;
+    expr *expr           = NULL;
 
     if (argc < 2) {
         help();
@@ -51,8 +51,8 @@ int main(int argc, char *argv[]) {
         printf("parse fail\n");
         return -1;
     }
-    ast = parser_ast(parser);
-    run(ast);
+    expr = parser_expr(parser);
+    printf("%d\n",run(expr));
 
     return 0;
 }
@@ -60,7 +60,7 @@ int main(int argc, char *argv[]) {
 int lex_token_stream_pp(lex_state *state) {
 
     printf("{");
-    for (lex_token_stream *stream = state->head;  stream->data != NULL; stream = stream->next) {
+    for (lex_token_stream *stream = state->head; stream->data != NULL; stream = stream->next) {
         printf("%s:%s,", lex_token_typ_str(stream->data), lex_token_sym_str(stream->data));
     }
     printf("}\n");
