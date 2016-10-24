@@ -8,6 +8,7 @@
 #define TOK_DIV 5
 #define TOK_PAREN_L 6
 #define TOK_PAREN_R 7
+#define TOK_EOL 8
 
 
 struct lex_token {

@@ -5,5 +5,4 @@
 #include "ast.h"
 lex_state *lex(char *src);
 parser_stack_t *lex_token_stream2parser_stack(lex_token_stream *);
-parser_state *parse(lex_state *);
 #endif

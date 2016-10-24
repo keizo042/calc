@@ -115,6 +115,7 @@ int lex_text(lex_state *state) {
     while (1) {
         switch (lex_state_peek(state)) {
         case '\0':
+            lex_emit(state, TOK_EOL);
             return END;
         case ' ':
         case '\n':

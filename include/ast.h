@@ -17,6 +17,7 @@ struct expr {
     int tag;
     union {
         char op;
+        int digit;
         char *sym;
         binop_t *binop;
     } data;
