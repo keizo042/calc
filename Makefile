@@ -13,7 +13,7 @@ calc:  $(SRC)
 .PHONY: test
 
 test:
-	$(BINDIR)/calc dump lex "(+ 1 2)"
+	$(BINDIR)/calc dump "(+ 1 2)"
 
 
 .PHONY: clean

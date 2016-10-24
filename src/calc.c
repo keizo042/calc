@@ -31,15 +31,13 @@ int main(int argc, char *argv[]) {
             help();
             return 0;
         }
-        if (strncmp("lex", argv[2], 3) == 0) {
-            lexer = lex(argv[3]);
-            if (lexer == NULL) {
-                printf("lexer fail\n");
-                return -1;
-            }
-            lex_token_stream_pp(lexer);
-            return 0;
+        lexer = lex(argv[2]);
+        if (lexer == NULL) {
+            printf("lexer fail\n");
+            return -1;
         }
+        lex_token_stream_pp(lexer);
+        return 0;
     }
     lexer = lex(argv[1]);
     if (lexer == NULL) {
@@ -52,7 +50,7 @@ int main(int argc, char *argv[]) {
         return -1;
     }
     expr = parser_expr(parser);
-    printf("%d\n",run(expr));
+    printf("%d\n", run(expr));
 
     return 0;
 }

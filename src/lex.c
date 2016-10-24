@@ -1,5 +1,5 @@
-#include "calc.h"
 #include "lex.h"
+#include "calc.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -108,6 +108,7 @@ static int lex_emit(lex_state *state, int typ) {
 }
 
 lex_token_stream *lex_state_stream(lex_state *state) { return state->head; }
+lex_token_stream *lex_token_stream_next(lex_token_stream *stream) { return stream->next; }
 
 
 int lex_text(lex_state *state) {

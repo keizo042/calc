@@ -35,6 +35,7 @@ struct lex_state {
 typedef struct lex_state lex_state;
 
 lex_token_stream *lex_state_stream(lex_state *);
+lex_token_stream *lex_token_stream_next(lex_token_stream*);
 const char *lex_token_typ_str(lex_token *);
 const char *lex_token_sym_str(lex_token *);
 #endif
