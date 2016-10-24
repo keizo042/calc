@@ -21,6 +21,11 @@ static int lex_emit(lex_state *, int);
 
 static lex_token *lex_token_new(char *tok, int len, int tag) {
     lex_token *token = malloc(sizeof(lex_token));
+    if (tag == TOK_EOL) {
+        token->tok = NULL;
+        token->tag = tag;
+        return token;
+    }
     token->tok       = malloc(sizeof(char) * (len + 1));
     strncpy(token->tok, tok, len);
     token->tag = tag;
@@ -104,6 +109,10 @@ static int lex_emit(lex_state *state, int typ) {
     state->len   = 0;
     state->pos   = 0;
 
+    if(typ == TOK_EOL)
+    {
+        return END;
+    }
     return CONTINUE;
 }
 
@@ -183,6 +192,8 @@ const char *lex_token_typ_str(lex_token *token) {
         return "TOK_DIV";
     case TOK_DIGIT:
         return "TOK_DIGIT";
+    case TOK_EOL:
+        return "TOK_EOL";
     default:
         return "undefined";
     }

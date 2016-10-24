@@ -21,3 +21,12 @@ test:
 clean:
 	rm $(BINDIR)/calc > /dev/null  2>&1
 
+.PHONY: lex
+
+lex:
+	$(BINDIR)/calc dump lex "(+ 1 2)"
+
+.PHONY: parse
+
+parse: 
+	$(BINDIR)/calc dump parse "(+ 1 2)"

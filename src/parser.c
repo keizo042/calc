@@ -40,8 +40,6 @@ static int parse_binop(parser_state *state);
 static int parse_end(parser_state *state);
 
 static int parse_init(parser_state *state) {
-    parser_stack_t *stack = NULL;
-    expr *e1 = NULL, *e2 = NULL, *e3 = NULL, *eresult = NULL;
     switch (state->stream->data->tag) {
     case TOK_EOL:
         return PARSER_END;
@@ -49,6 +47,20 @@ static int parse_init(parser_state *state) {
     case TOK_MIN:
     case TOK_MUITI:
     case TOK_DIV:
+        return PARSER_CONTINUE;
+    case TOK_PAREN_L:
+        return parse_init(state);
+    case TOK_PAREN_R:
+        return parse_end(state);
+    case TOK_DIGIT:
+        parser_stack_push(state, NULL);
+        return PARSER_CONTINUE;
+    }
+}
+
+static int parse_binop(parser_state *state) {
+    parser_stack_t *stack = NULL;
+    expr *e1 = NULL, *e2 = NULL, *e3 = NULL, *eresult = NULL;
         parser_stack_push(state, lex_token2expr(state->stream->data));
 
         parser_state_lex_token_stream_next(state);
@@ -68,18 +80,7 @@ static int parse_init(parser_state *state) {
         eresult->data.binop->lval  = e2;
         eresult->data.binop->rval  = e3;
         parser_stack_push(state, eresult);
-        return PARSER_END;
-    case TOK_PAREN_L:
-        return parse_init(state);
-    case TOK_PAREN_R:
-        return parse_end(state);
-    case TOK_DIGIT:
-        parser_stack_push(state, NULL);
-        return PARSER_CONTINUE;
-    }
 }
-
-static int parse_binop(parser_state *state) {}
 
 static int parse_end(parser_state *state) { return PARSER_CONTINUE; }
 
