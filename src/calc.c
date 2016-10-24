@@ -7,6 +7,7 @@
 #include <string.h>
 
 int lex_token_stream_pp(lex_state *state);
+int parser_ast_pp(parser_state *state);
 
 void help() {
     char *desc[] = {"", NULL};
@@ -37,6 +38,12 @@ int main(int argc, char *argv[]) {
             return -1;
         }
         lex_token_stream_pp(lexer);
+        parser = parse(lexer);
+        if (parser->err == 1) {
+            printf("parse fail\n");
+            return -1;
+        }
+        parser_ast_pp(parser);
         return 0;
     }
     lexer = lex(argv[1]);
@@ -64,3 +71,5 @@ int lex_token_stream_pp(lex_state *state) {
     printf("}\n");
     return 0;
 }
+
+int parser_ast_pp(parser_state *state) { return 0; }
