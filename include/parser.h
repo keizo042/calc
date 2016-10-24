@@ -31,5 +31,6 @@ struct parser_state_s {
 int parser_state_lex_token_stream_next(parser_state *);
 expr *parser_expr(parser_state *);
 parser_stack_t *expr2stack(expr *);
+parser_state *parse(lex_state *);
 
 #endif

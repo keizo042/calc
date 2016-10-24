@@ -43,6 +43,8 @@ static int parse_init(parser_state *state) {
     parser_stack_t *stack = NULL;
     expr *e1 = NULL, *e2 = NULL, *e3 = NULL, *eresult = NULL;
     switch (state->stream->data->tag) {
+    case TOK_EOL:
+        return PARSER_END;
     case TOK_PLUS:
     case TOK_MIN:
     case TOK_MUITI:
@@ -73,13 +75,13 @@ static int parse_init(parser_state *state) {
         return parse_end(state);
     case TOK_DIGIT:
         parser_stack_push(state, NULL);
-        return PARSER_END;
+        return PARSER_CONTINUE;
     }
 }
 
 static int parse_binop(parser_state *state) {}
 
-static int parse_end(parser_state *state) { return PARSER_END; }
+static int parse_end(parser_state *state) { return PARSER_CONTINUE; }
 
 static parser_state *parser_state_open() {
     parser_state *state = malloc(sizeof(parser_state));
