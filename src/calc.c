@@ -30,6 +30,7 @@ int main(int argc, char *argv[]) {
     }
     if (strncmp("dump", argv[1], 4) == 0) {
         dump(argc - 1, argv + 1);
+        return 0;
     }
     lexer = lex(argv[1]);
     if (lexer == NULL) {
@@ -88,22 +89,22 @@ int parser_ast_pp(parser_state *state) {
 }
 
 int dump(int argc, char **argv) {
-    char *src = NULL;
-    lex_state *lexer = NULL;
-    parser_state *parser =NULL;
+    char *src            = NULL;
+    lex_state *lexer     = NULL;
+    parser_state *parser = NULL;
     if (argc < 2) {
         help();
         return 0;
     }
     if (argc == 3) {
         if (strncmp("lex", argv[1], 3) == 0) {
-            src = argv[2];
-            lexer     = lex(src);
+            src   = argv[2];
+            lexer = lex(src);
             lex_token_stream_pp(lexer);
             return 0;
         }
-        if(strncmp("parse", argv[1], 5) == 0) {
-            src = argv[2];
+        if (strncmp("parse", argv[1], 5) == 0) {
+            src    = argv[2];
             lexer  = lex(src);
             parser = parse(lexer);
             parser_ast_pp(parser);
@@ -113,6 +114,7 @@ int dump(int argc, char **argv) {
     } else {
         src = argv[1];
     }
+
     lexer = lex(src);
     if (lexer == NULL) {
         printf("lexer fail\n");

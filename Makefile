@@ -23,10 +23,10 @@ clean:
 
 .PHONY: lex
 
-lex:
+lextest:
 	$(BINDIR)/calc dump lex "(+ 1 2)"
 
 .PHONY: parse
 
-parse: 
+parsetest: 
 	$(BINDIR)/calc dump parse "(+ 1 2)"
