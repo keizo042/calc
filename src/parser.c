@@ -73,6 +73,7 @@ static int parse_init(parser_state *state) {
         parser_stack_push(state, e1);
         return PARSER_CONTINUE;
     case TOK_PAREN_R:
+        parser_state_lex_token_stream_next(state);
         return parse_end(state);
     case TOK_DIGIT:
         return parse_digit(state);
