@@ -11,7 +11,13 @@ typedef struct expr expr;
 
 #define AST_DIGIT 1
 #define AST_BINOP 2
-#define AST_OP 3
+#define AST_EXPR 3
+
+struct binop {
+    char op;
+    expr *lval;
+    expr *rval;
+};
 
 struct expr {
     int tag;
@@ -19,14 +25,10 @@ struct expr {
         char op;
         int digit;
         char *sym;
-        binop_t *binop;
+        binop_t binop;
+        expr *e;
     } data;
 };
 
-struct binop {
-    char binop;
-    expr *lval;
-    expr *rval;
-};
 
 #endif // AST_H

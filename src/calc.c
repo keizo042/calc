@@ -62,7 +62,7 @@ int expr_pp(expr *expr);
 int binop_pp(binop_t *binop);
 
 int binop_pp(binop_t *binop) {
-    printf("%c ", binop->binop);
+    printf("%c ", binop->op);
     expr_pp(binop->lval);
     expr_pp(binop->rval);
     return 0;
@@ -74,7 +74,7 @@ int expr_pp(expr *expr) {
     case AST_DIGIT:
         printf("%d", expr->data.digit);
     case AST_BINOP:
-        binop_pp(expr->data.binop);
+        binop_pp(&(expr->data.binop));
     }
     printf(")");
 }

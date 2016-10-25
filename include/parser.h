@@ -8,7 +8,6 @@
 struct parser_state;
 typedef struct parser_state_s parser_state;
 
-typedef int (*statefn_t)(parser_state *);
 
 struct parser_stack_s;
 typedef struct parser_stack_s parser_stack_t;
@@ -22,7 +21,6 @@ struct parser_stack_s {
 struct parser_state_s {
     lex_token_stream *stream;
     parser_stack_t *stack;
-    statefn_t fn;
     expr *result;
     int err;
 };
