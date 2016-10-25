@@ -26,11 +26,6 @@ clean:
 lextest:
 	$(BINDIR)/calc dump lex "(+ 1 2)"
 	$(BINDIR)/calc dump lex "(+ 100 200)"
-	$(BINDIR)/calc dump lex "(/ 100 (+ 200 300))"
-	$(BINDIR)/calc dump lex ""
-	$(BINDIR)/calc dump lex "((((+ 1 2))))"
-
-
 
 .PHONY: parse
 

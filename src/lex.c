@@ -26,7 +26,7 @@ static lex_token *lex_token_new(char *tok, int len, int tag) {
         token->tag = tag;
         return token;
     }
-    token->tok       = malloc(sizeof(char) * (len + 1));
+    token->tok = malloc(sizeof(char) * (len + 1));
     strncpy(token->tok, tok, len);
     token->tag = tag;
     return token;
@@ -77,27 +77,25 @@ void lex_state_p(lex_state *state) {
 static char lex_state_next(lex_state *state) {
     return *(state->start + state->pos + state->len + 1);
 }
-static char lex_state_peek(lex_state *state) { return *(state->start + state->pos); }
+static char lex_state_peek(lex_state *state) { return *(state->start + state->pos + state->len); }
 static char lex_state_pook(lex_state *state) {
     return *(state->start + state->pos + state->len - 1);
 }
 
 static char lex_state_incr(lex_state *state) {
-    state->len++;
     state->pos++;
     return *(state->start + state->pos + state->len);
 }
 
 static char lex_state_decr(lex_state *state) {
-    if (state->len > 0) {
-        state->len--;
+    if (state->pos > 0) {
         state->pos--;
     }
     return *(state->start + state->pos + state->len);
 }
 
 static int lex_emit(lex_state *state, int typ) {
-    lex_token *token         = lex_token_new(state->start, state->len, typ);
+    lex_token *token         = lex_token_new(state->start + state->pos, state->len, typ);
     lex_token_stream *stream = lex_token_stream_open();
 
     state->tail->data = token;
@@ -105,12 +103,11 @@ static int lex_emit(lex_state *state, int typ) {
     state->tail->next = stream;
     state->tail       = stream;
 
-    state->start = state->start + state->pos;
+    state->start = state->start + state->pos + state->len;
     state->len   = 0;
     state->pos   = 0;
 
-    if(typ == TOK_EOL)
-    {
+    if (typ == TOK_EOL) {
         return END;
     }
     return CONTINUE;
@@ -129,25 +126,26 @@ int lex_text(lex_state *state) {
         case ' ':
         case '\n':
         case '\t':
-            state->pos++;
+            lex_state_incr(state);
             return CONTINUE;
         case '(':
-            lex_state_incr(state);
+            state->len++;
             return lex_emit(state, TOK_PAREN_L);
         case ')':
-            lex_state_incr(state);
+            state->len++;
             return lex_emit(state, TOK_PAREN_R);
         case '*':
-            lex_state_incr(state);
+            state->len++;
             return lex_emit(state, TOK_MUITI);
         case '-':
-            lex_state_incr(state);
+            state->len++;
             return lex_emit(state, TOK_MIN);
         case '+':
-            lex_state_incr(state);
+            state->len++;
             return lex_emit(state, TOK_PLUS);
         case '/':
             lex_state_incr(state);
+            state->len++;
             return lex_emit(state, TOK_DIV);
         default:
             return lex_ident(state);
@@ -157,9 +155,8 @@ int lex_text(lex_state *state) {
 
 int lex_ident(lex_state *state) {
     while (NUM_P(lex_state_peek(state))) {
-        lex_state_incr(state);
+        state->len++;
     }
-    state->len++;
     return lex_emit(state, TOK_DIGIT);
 }
 
