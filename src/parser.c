@@ -125,12 +125,15 @@ static parser_state *parser_state_open() {
 parser_state *parse(lex_state *lexer) {
     parser_state *state = parser_state_open();
     state->stream       = lexer->head;
+    parser_stack_t *stack      = NULL;
     int ret             = PARSER_CONTINUE;
 
     while (ret == PARSER_CONTINUE) {
         ret = parse_init(state);
         break;
     }
+    stack = parser_stack_pop(state);
+    state->result =stack->expr;
     return state;
 }
 

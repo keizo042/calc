@@ -75,15 +75,22 @@ int expr_pp(expr *expr) {
         printf("%d", expr->data.digit);
     case AST_BINOP:
         binop_pp(&(expr->data.binop));
+    case AST_EXPR:
+        expr_pp(expr->data.e);
+    default:
+        printf("unknown\n");
+        return -1;
     }
     printf(")");
+    return 0;
 }
 
 
 int parser_ast_pp(parser_state *state) {
     expr *expr = parser_expr(state);
-    if (expr == NULL)
+    if (expr == NULL) {
         return -1;
+    }
     expr_pp(expr);
     return 0;
 }
@@ -107,7 +114,11 @@ int dump(int argc, char **argv) {
             src    = argv[2];
             lexer  = lex(src);
             parser = parse(lexer);
-            parser_ast_pp(parser);
+            if (parser != NULL) {
+                parser_ast_pp(parser);
+            }else{
+                puts("parser fail");
+            }
             return 0;
         }
         return -1;
