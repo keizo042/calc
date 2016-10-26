@@ -14,12 +14,7 @@ calc:  $(SRC)
 .PHONY: test
 
 test:
-	$(BINDIR)/calc "(+ 1 2)"
-	$(BINDIR)/calc "(- 1 2)"
-	$(BINDIR)/calc "(* 1 2)"
-	$(BINDIR)/calc "(/ 1 2)"
-	$(BINDIR)/calc "(+ (+1 2) 2)"
-	$(BINDIR)/calc "(+ (- 2 1) 0)"
+	/bin/sh ./test.sh
 
 
 .PHONY: clean

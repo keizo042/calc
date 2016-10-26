@@ -1,6 +1,7 @@
 #include "ast.h"
 #include <math.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 int run(expr *expr)
 {
@@ -22,7 +23,8 @@ int run(expr *expr)
                 case '/':
                     if(r == 0)
                     {
-                        return 0;
+                        printf("can not divide zero");
+                        exit(-1);
                     }else{
                         return (l / r);
                     }
