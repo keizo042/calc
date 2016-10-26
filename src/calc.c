@@ -42,7 +42,6 @@ int main(int argc, char *argv[]) {
         printf("parse fail\n");
         return -1;
     }
-    expr = parser_expr(parser);
     printf("%d\n", run(expr));
 
     return 0;

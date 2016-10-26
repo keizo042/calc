@@ -1,7 +1,7 @@
 TOP=.
 SRCDIR =$(TOP)/src
 BINDIR =$(TOP)/bin
-INCLUDE = -I$(TOP)/include -I$(SRCDIR)
+INCLUDE = -I$(TOP)/include -I$(SRCDIR) -lm
 SRC=$(wildcard $(SRCDIR)/*.c)
 
 .PHONY: all
@@ -14,7 +14,7 @@ calc:  $(SRC)
 .PHONY: test
 
 test:
-	$(BINDIR)/calc dump "(+ 1 2)"
+	$(BINDIR)/calc "(+ 1 2)"
 
 
 .PHONY: clean
