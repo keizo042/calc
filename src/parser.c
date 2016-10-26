@@ -11,7 +11,7 @@ static parser_state *parser_state_open();
 #define PARSER_END 0
 #define PARSER_CONTINUE 1
 
-parser_stack_t *parser_stack_pop(parser_state *state) {
+expr *parser_stack_pop(parser_state *state) {
     parser_stack_t *stack;
     if (state->stack == NULL) {
         return NULL;
@@ -24,7 +24,7 @@ parser_stack_t *parser_stack_pop(parser_state *state) {
         state->stack = NULL;
     }
 
-    return stack;
+    return stack->expr;
 }
 
 int parser_stack_push(parser_state *state, expr *expr) {
@@ -53,7 +53,6 @@ static int parse_digit(parser_state *state);
 
 static int parse_init(parser_state *state) {
     expr *e1 = NULL, *e2 = NULL;
-    parser_stack_t *stack;
     switch (parser_state_lex_token_tag(state)) {
     case TOK_EOL:
         return PARSER_END;
@@ -66,8 +65,7 @@ static int parse_init(parser_state *state) {
         e1 = malloc(sizeof(expr));
         parser_state_lex_token_stream_next(state);
         parse_init(state);
-        stack      = parser_stack_pop(state);
-        e2         = stack->expr;
+        e2      = parser_stack_pop(state);
         e1->tag    = AST_EXPR;
         e1->data.e = e2;
         parser_stack_push(state, e1);
@@ -84,7 +82,6 @@ static int parse_init(parser_state *state) {
 }
 
 static int parse_binop(parser_state *state) {
-    parser_stack_t *stack = NULL;
     expr *e1 = NULL, *e2 = NULL, *eresult = NULL, *t = NULL;
 
     eresult                = malloc(sizeof(expr));
@@ -93,13 +90,11 @@ static int parse_binop(parser_state *state) {
 
     parser_state_lex_token_stream_next(state);
     parse_init(state);
-    stack = parser_stack_pop(state);
-    e1    = stack->expr;
+    e1 = parser_stack_pop(state);
 
     parser_state_lex_token_stream_next(state);
     parse_init(state);
-    stack = parser_stack_pop(state);
-    e2    = stack->expr;
+    e2 = parser_stack_pop(state);
 
     eresult->data.binop.lval = e1;
     eresult->data.binop.rval = e2;
@@ -136,8 +131,7 @@ parser_state *parse(lex_state *lexer) {
         ret = parse_init(state);
         break;
     }
-    stack = parser_stack_pop(state);
-    state->result =stack->expr;
+    state->result = parser_stack_pop(state);
     return state;
 }
 
