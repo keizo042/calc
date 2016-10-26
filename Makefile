@@ -8,6 +8,7 @@ SRC=$(wildcard $(SRCDIR)/*.c)
 all: calc
 
 calc:  $(SRC)
+	[ -d $(TOP)/bin ] || mkdir $(TOP)/bin
 	gcc -g $(INCLUDE) $(SRC)  -o $(BINDIR)/calc
 
 .PHONY: test

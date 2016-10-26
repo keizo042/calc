@@ -77,7 +77,10 @@ static int parse_init(parser_state *state) {
         return parse_end(state);
     case TOK_DIGIT:
         return parse_digit(state);
+    default:
+        return PARSER_END;
     }
+    return PARSER_END;
 }
 
 static int parse_binop(parser_state *state) {

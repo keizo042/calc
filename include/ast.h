@@ -9,6 +9,7 @@ typedef struct expr expr;
 
 
 
+#define AST_UNDEFINED (-1)
 #define AST_DIGIT 1
 #define AST_BINOP 2
 #define AST_EXPR 3
