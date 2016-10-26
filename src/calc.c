@@ -42,6 +42,11 @@ int main(int argc, char *argv[]) {
         printf("parse fail\n");
         return -1;
     }
+    expr = parser->result;
+    if (expr != NULL) {
+        printf("abort");
+        return -1;
+    }
     printf("%d\n", run(expr));
 
     return 0;
@@ -122,7 +127,7 @@ int dump(int argc, char **argv) {
             parser = parse(lexer);
             if (parser != NULL) {
                 parser_ast_pp(parser);
-            }else{
+            } else {
                 puts("parser fail");
             }
             return 0;

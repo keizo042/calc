@@ -24,6 +24,7 @@ int run(expr *expr)
                     {
                         return 0;
                     }else{
+                        return (l / r);
                     }
 
                 case '*':
