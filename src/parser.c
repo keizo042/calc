@@ -86,7 +86,7 @@ static int parse_init(parser_state *state) {
 }
 
 static int parse_binop(parser_state *state) {
-    expr *e1 = NULL, *e2 = NULL, *eresult = NULL; 
+    expr *e1 = NULL, *e2 = NULL, *eresult = NULL;
 
     eresult                = malloc(sizeof(expr));
     eresult->tag           = AST_BINOP;
@@ -95,8 +95,7 @@ static int parse_binop(parser_state *state) {
     parser_state_lex_token_stream_next(state);
     parse_init(state);
     e1 = parser_stack_pop(state);
-    if(e1 == NULL)
-    {
+    if (e1 == NULL) {
         state->err = 1;
         return PARSER_END;
     }
@@ -104,8 +103,7 @@ static int parse_binop(parser_state *state) {
     parser_state_lex_token_stream_next(state);
     parse_init(state);
     e2 = parser_stack_pop(state);
-    if(e2 == NULL)
-    {
+    if (e2 == NULL) {
         state->err = 1;
         return PARSER_END;
     }
@@ -137,17 +135,12 @@ static parser_state *parser_state_open() {
 }
 
 parser_state *parse(lex_state *lexer) {
-    parser_state *state   = parser_state_open();
-    state->stream         = lexer->head;
-    int ret               = PARSER_CONTINUE;
+    parser_state *state = parser_state_open();
+    state->stream       = lexer->head;
+    int ret             = PARSER_CONTINUE;
 
-    while (ret == PARSER_CONTINUE) {
-        ret = parse_init(state);
-        break;
-    }
-    if(state->err == 1)
-    {
-        puts("parse error");
+    ret = parse_init(state);
+    if (state->err == 1) {
         return NULL;
     }
     state->result = parser_stack_pop(state);

@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
         return -1;
     }
     parser = parse(lexer);
-    if (parser->err == 1) {
+    if (parser->err == 1 || parser->result == NULL) {
         printf("parse fail\n");
         return -1;
     }
