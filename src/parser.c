@@ -96,13 +96,19 @@ static int parse_binop(parser_state *state) {
     parse_init(state);
     e1 = parser_stack_pop(state);
     if(e1 == NULL)
+    {
+        state->err = 1;
         return PARSER_END;
+    }
 
     parser_state_lex_token_stream_next(state);
     parse_init(state);
     e2 = parser_stack_pop(state);
     if(e2 == NULL)
+    {
+        state->err = 1;
         return PARSER_END;
+    }
 
     eresult->data.binop.lval = e1;
     eresult->data.binop.rval = e2;
@@ -138,6 +144,11 @@ parser_state *parse(lex_state *lexer) {
     while (ret == PARSER_CONTINUE) {
         ret = parse_init(state);
         break;
+    }
+    if(state->err == 1)
+    {
+        puts("parse error");
+        return NULL;
     }
     state->result = parser_stack_pop(state);
     return state;
