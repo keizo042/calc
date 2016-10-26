@@ -10,7 +10,9 @@ int run(expr *expr)
             return -2;
             
         case AST_DIGIT:
-            return atoi( expr->data.sym);
+            return expr->data.digit;
+        case AST_EXPR:
+            return run(expr->data.e);
         default:
             return -1;
     }

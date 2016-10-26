@@ -65,14 +65,16 @@ static int parse_init(parser_state *state) {
         e1 = malloc(sizeof(expr));
         parser_state_lex_token_stream_next(state);
         parse_init(state);
-        e2      = parser_stack_pop(state);
+        e2         = parser_stack_pop(state);
         e1->tag    = AST_EXPR;
         e1->data.e = e2;
         parser_stack_push(state, e1);
-        return PARSER_CONTINUE;
-    case TOK_PAREN_R:
+        if (parser_state_lex_token_tag(state) != TOK_PAREN_R) {
+            return PARSER_END;
+        }
         parser_state_lex_token_stream_next(state);
-        return parse_end(state);
+        return PARSER_CONTINUE;
+        parser_state_lex_token_stream_next(state);
     case TOK_DIGIT:
         return parse_digit(state);
     default:
@@ -82,7 +84,7 @@ static int parse_init(parser_state *state) {
 }
 
 static int parse_binop(parser_state *state) {
-    expr *e1 = NULL, *e2 = NULL, *eresult = NULL, *t = NULL;
+    expr *e1 = NULL, *e2 = NULL, *eresult = NULL; 
 
     eresult                = malloc(sizeof(expr));
     eresult->tag           = AST_BINOP;
@@ -122,10 +124,9 @@ static parser_state *parser_state_open() {
 }
 
 parser_state *parse(lex_state *lexer) {
-    parser_state *state = parser_state_open();
-    state->stream       = lexer->head;
-    parser_stack_t *stack      = NULL;
-    int ret             = PARSER_CONTINUE;
+    parser_state *state   = parser_state_open();
+    state->stream         = lexer->head;
+    int ret               = PARSER_CONTINUE;
 
     while (ret == PARSER_CONTINUE) {
         ret = parse_init(state);
@@ -134,7 +135,5 @@ parser_state *parse(lex_state *lexer) {
     state->result = parser_stack_pop(state);
     return state;
 }
-
-parser_stack_t *expr2stack(expr *expr) { return NULL; }
 
 expr *parser_expr(parser_state *parser) { return parser->result; }

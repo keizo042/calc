@@ -20,7 +20,7 @@ test:
 .PHONY: clean
 
 clean:
-	rm $(BINDIR)/calc > /dev/null  2>&1
+	rm -rf $(BINDIR) > /dev/null  2>&1
 
 .PHONY: lex
 

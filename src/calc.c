@@ -77,6 +77,9 @@ int expr_pp(expr *expr) {
         binop_pp(&(expr->data.binop));
     case AST_EXPR:
         expr_pp(expr->data.e);
+    case AST_UNDEFINED:
+        printf("aborn");
+        return -2;
     default:
         printf("unknown\n");
         return -1;
