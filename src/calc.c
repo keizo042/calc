@@ -73,10 +73,13 @@ int expr_pp(expr *expr) {
     switch (expr->tag) {
     case AST_DIGIT:
         printf("%d", expr->data.digit);
+        break;
     case AST_BINOP:
         binop_pp(&(expr->data.binop));
+        break;
     case AST_EXPR:
         expr_pp(expr->data.e);
+        break;
     case AST_UNDEFINED:
         printf("aborn");
         return -2;
@@ -95,6 +98,7 @@ int parser_ast_pp(parser_state *state) {
         return -1;
     }
     expr_pp(expr);
+    printf("\n");
     return 0;
 }
 

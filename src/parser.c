@@ -75,6 +75,8 @@ static int parse_init(parser_state *state) {
         parser_state_lex_token_stream_next(state);
         return PARSER_CONTINUE;
         parser_state_lex_token_stream_next(state);
+    case TOK_PAREN_R:
+        return PARSER_CONTINUE;
     case TOK_DIGIT:
         return parse_digit(state);
     default:
@@ -93,14 +95,19 @@ static int parse_binop(parser_state *state) {
     parser_state_lex_token_stream_next(state);
     parse_init(state);
     e1 = parser_stack_pop(state);
+    if(e1 == NULL)
+        return PARSER_END;
 
     parser_state_lex_token_stream_next(state);
     parse_init(state);
     e2 = parser_stack_pop(state);
+    if(e2 == NULL)
+        return PARSER_END;
 
     eresult->data.binop.lval = e1;
     eresult->data.binop.rval = e2;
     parser_stack_push(state, eresult);
+    parser_state_lex_token_stream_next(state);
     return PARSER_CONTINUE;
 }
 
