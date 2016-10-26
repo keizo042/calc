@@ -8,13 +8,14 @@ implemented by C programming language.
 
 ## sample
 ```
-$ calc (+ (* 1 2) 2)
+$ ./bin/calc "(+ 1 2)"
+4    
 ```
->4    
 
 ## Requirement
-gcc
-linux
+gcc  
+linux  
+make  
 
 ## Install
 make
@@ -30,3 +31,8 @@ MITL
 ## Contact me
 twitter : @keizo042  
 mail: keizo.bookman at gmail.com  
+
+## release date
+
+v1.0.0
+2016/10/26
