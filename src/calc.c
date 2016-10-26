@@ -42,8 +42,9 @@ int main(int argc, char *argv[]) {
         printf("parse fail\n");
         return -1;
     }
-    expr = parser->result;
-    if (expr != NULL) {
+    expr = parser_expr(parser);
+
+    if (expr == NULL) {
         printf("abort");
         return -1;
     }
