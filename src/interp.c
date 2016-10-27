@@ -29,6 +29,9 @@ int run(expr *expr) {
 
         case '*':
             return (l * r);
+        default:
+            printf("calc can only accept + - / *\n");
+            exit(-1);
         }
 
     case AST_DIGIT:
