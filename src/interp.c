@@ -21,7 +21,7 @@ int run(expr *expr) {
             return (l - r);
         case '/':
             if (r == 0) {
-                printf("can not divide zero");
+                printf("can not divide zero\n");
                 exit(-1);
             } else {
                 return (l / r);

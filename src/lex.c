@@ -144,7 +144,6 @@ int lex_text(lex_state *state) {
             state->len++;
             return lex_emit(state, TOK_PLUS);
         case '/':
-            lex_state_incr(state);
             state->len++;
             return lex_emit(state, TOK_DIV);
         default:
