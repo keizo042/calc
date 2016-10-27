@@ -34,3 +34,6 @@ parsetest:
 	$(BINDIR)/calc dump parse "(+ 1 2)"
 	$(BINDIR)/calc dump parse "(+ (1) 2)"
 	$(BINDIR)/calc dump parse "(+ (+ 1 1) 2)"
+	$(BINDIR)/calc dump parse "(/ 1 1)"
+	$(BINDIR)/calc dump parse "(/ (/ 12 2)  2)"
+
