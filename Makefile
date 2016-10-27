@@ -32,3 +32,5 @@ lextest:
 
 parsetest: 
 	$(BINDIR)/calc dump parse "(+ 1 2)"
+	$(BINDIR)/calc dump parse "(+ (1) 2)"
+	$(BINDIR)/calc dump parse "(+ (+ 1 1) 2)"

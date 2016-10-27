@@ -69,9 +69,6 @@ static int parse_init(parser_state *state) {
         e1->tag    = AST_EXPR;
         e1->data.e = e2;
         parser_stack_push(state, e1);
-        if (parser_state_lex_token_tag(state) != TOK_PAREN_R) {
-            return PARSER_END;
-        }
         parser_state_lex_token_stream_next(state);
         return PARSER_CONTINUE;
         parser_state_lex_token_stream_next(state);
@@ -111,7 +108,6 @@ static int parse_binop(parser_state *state) {
     eresult->data.binop.lval = e1;
     eresult->data.binop.rval = e2;
     parser_stack_push(state, eresult);
-    parser_state_lex_token_stream_next(state);
     return PARSER_CONTINUE;
 }
 
@@ -141,7 +137,7 @@ parser_state *parse(lex_state *lexer) {
 
     ret = parse_init(state);
     if (state->err == 1) {
-        return NULL;
+        return state;
     }
     state->result = parser_stack_pop(state);
     return state;

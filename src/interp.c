@@ -34,6 +34,10 @@ int run(expr *expr) {
     case AST_DIGIT:
         return expr->data.digit;
     case AST_EXPR:
+        if(expr->data.e == NULL)
+        {
+            exit(-1);
+        }
         return run(expr->data.e);
     default:
         return -1;
