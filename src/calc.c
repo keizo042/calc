@@ -23,6 +23,7 @@ int main(int argc, char *argv[]) {
     lex_state *lexer     = NULL;
     parser_state *parser = NULL;
     expr *expr           = NULL;
+    int res = 0;
 
     if (argc < 2) {
         help();
@@ -38,7 +39,7 @@ int main(int argc, char *argv[]) {
         return -1;
     }
     parser = parse(lexer);
-    if (parser->err == 1 || parser->result == NULL) {
+    if (parser == NULL || parser->err == 1  || parser->result == NULL){
         printf("parse fail\n");
         return -1;
     }
@@ -48,7 +49,9 @@ int main(int argc, char *argv[]) {
         printf("abort");
         return -1;
     }
-    printf("%d\n", run(expr));
+
+    res = run(expr);
+    printf("%d\n", res);
 
     return 0;
 }
