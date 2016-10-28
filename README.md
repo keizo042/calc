@@ -8,7 +8,7 @@ implemented by C programming language.
 
 ## sample
 ```
-$ ./bin/calc "(+ 1 2)"
+$ ./bin/calc "(+ (+ 1) 2)"
 4    
 ```
 
